@@ -1,0 +1,38 @@
+ provisioner "file" {
+    content = <<EOF
+    datacenter          = "DC1"
+    server              = true
+    bootstrap_expect    = 3
+    leave_on_terminate  = true
+    advertise_addr      = "self.private_ip"
+    data_dir            = "/opt/consul/data"
+    client_addr         = "0.0.0.0"
+    log_level           = "INFO"
+    ui                  = true
+
+    #AWS cloud join
+    #retry_join          = ["provider=aws tag_key=Environment_Name tag_value=Dev"]
+    #retry_join_wan      = [ wna_join ]
+    # manual IP config join
+    retry_join          = ["${aws_instance.consul_primarycluster.*.private_ip[count.index +1]"] 
+    +1]}"]
+    #retry_join_wan      = ["192.168.10.100"]
+
+disable_remote_exec = false
+
+connect {
+  enabled = true
+}
+acl_datacenter =  "dc1"
+acl_default_policy =  "deny"
+acl_down_policy =  "extend-cache"
+
+}
+        
+EOF
+
+
+destination = "/etc/consul.d/consul.hcl"
+}
+
+"consul keygen > /tmp/encryptfile"

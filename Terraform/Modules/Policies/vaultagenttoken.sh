@@ -1,0 +1,2 @@
+#!/bin/bash
+curl --request PUT --header "X-Consul-Token: CONSULMASTERTOKEN" --data '{ "Name": "Vault Agent Token", "Type": "client", "Rules": "node \"\" { policy = \"write\" } service \"vault\" { policy = \"write\" } agent \"\" { policy = \"write\" } key \"vault\" { policy = \"write\" } session \"\" { policy = \"write\" }" }' http://127.0.0.1:8500/v1/acl/create
