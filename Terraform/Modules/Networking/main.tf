@@ -55,6 +55,15 @@ resource "aws_security_group" "cluster" {
     security_groups = [
       aws_security_group.vault_elb.id,   
     ]
+
+    ingress {
+    from_port = 8500
+    to_port   = 8500
+    protocol  = "tcp"
+
+    security_groups = [
+      aws_security_group.consul_elb.id,   
+    ]
   }
   
   egress {
@@ -163,6 +172,8 @@ resource "aws_elb" "vault_primary" {
     timeout             = 5
   }
 }
+
+
 
 /*
 

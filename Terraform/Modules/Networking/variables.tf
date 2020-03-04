@@ -13,8 +13,9 @@ variable "bastion_instancetags" {
 
 variable "vault_primary" {
   type        = list(string)
-  description = "Additional tags to attach to the Bastion Host EC2 instance"
+  description = "List of Vault servers to connect to the Vault ELB"
 }
+
 
 /*
 variable "vault_secondary" {

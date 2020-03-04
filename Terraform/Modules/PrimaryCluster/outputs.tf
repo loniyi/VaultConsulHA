@@ -9,3 +9,7 @@ output "vaultprimary_privateips" {
 output "vaultprimary_servers" {
   value = aws_instance.vault_primarycluster.*.id
 }
+
+
+
+
